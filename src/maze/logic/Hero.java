@@ -14,6 +14,7 @@ public class Hero extends Entity {
 		super();
 		this.living = true;
 		this.armed = false;
+		this.traversable = false;
 	}
 
 	public boolean isArmed() {

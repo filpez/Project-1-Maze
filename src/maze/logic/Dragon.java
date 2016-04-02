@@ -12,6 +12,7 @@ public class Dragon extends Entity {
 	public Dragon(){
 		super();
 		this.living = true;
+		this.traversable = false;
 	}
 	
 	

@@ -6,8 +6,8 @@ import java.util.Hashtable;
 
 public class CharBuilder {
 
-	public static Maze getNewMaze(int dimension, int numberOfDragons) {
-		char layout[][] = new MazeBuilder().buildMaze(dimension, numberOfDragons, 1);
+	public static Maze getMaze(char layout[][]) {
+		int dimension = layout.length;
 		Point point = new Point(0,0);
 		Hashtable<Point, ArrayList<Entity>> maze = new Hashtable<Point, ArrayList<Entity>>();
 		for (char row[]: layout){
@@ -26,17 +26,24 @@ public class CharBuilder {
 				case 'X':
 					list.add(new Wall());
 					break;
+				case 'S':
+					list.add(new Exit());
+					break;
 				default:
 					break;
 				}
-				maze.put(point, list);
+				maze.put(new Point(point), list);
 				point.x++;
 			}
 			point.y++;
 			point.x = 0;
 		}
-		
 		return new Maze(maze, dimension);
+	}
+	
+	public static Maze getMaze(int dimension, int numberOfDragons) {
+		char layout[][] = new MazeBuilder().buildMaze(dimension, numberOfDragons, 1);
+		return getMaze(layout);
 	}
 	
 }

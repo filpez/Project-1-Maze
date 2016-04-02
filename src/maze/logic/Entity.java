@@ -1,19 +1,20 @@
 package maze.logic;
 
+/**
+ * @author Filipe
+ *
+ */
 public abstract class Entity {
-	public enum Type {HERO, ENEMY, ITEM}
 	public enum Status {NORMAL, SLEEPING, DEAD}
 
 	protected Status status;
 	protected boolean living;
+	protected boolean traversable;
+	protected boolean moved;
 	
-	/**
-	 * Constructor
-	 * @param x	The horizontal coordinate.
-	 * @param y	The vertical coordinate.
-	 */
 	public Entity(){
 		this.status = Status.NORMAL;
+		this.moved = false;
 	}
 
 	public Status getStatus() {
@@ -32,6 +33,29 @@ public abstract class Entity {
 		this.living = living;
 	}
 
+	public boolean isTraversable() {
+		return traversable;
+	}
+
+	public void setTraversable(boolean traversable) {
+		this.traversable = traversable;
+	}
 	
 	
+	public boolean hasMoved() {
+		return moved;
+	}
+
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
+
+	/**
+	 * Sets living to false, status to Status.DEAD, and traversable to true;
+	 */
+	public void kill() {
+		this.living = false;
+		this.status = Status.DEAD;
+		this.traversable = true;
+	}
 }

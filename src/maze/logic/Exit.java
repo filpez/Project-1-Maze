@@ -1,8 +1,8 @@
 package maze.logic;
 
-public class Wall extends Entity {
+public class Exit extends Entity {
 
-	public Wall(){
+	public Exit(){
 		super();
 		this.living = false;
 		this.traversable = false;
