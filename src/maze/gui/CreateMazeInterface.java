@@ -54,6 +54,7 @@ public class CreateMazeInterface extends JDialog{
 	 */
 	public CreateMazeInterface(JFrame frame, boolean modal) {
 		super(frame, modal);
+		setTitle("Create Maze");
 		initialize();
 		setVisible(true);  
 	}

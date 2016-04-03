@@ -37,6 +37,7 @@ public class GenerateMazeInterface extends JDialog{
 	 */
 	public GenerateMazeInterface(JFrame frame, boolean modal) {
 		super(frame, modal);
+		setTitle("Generate Maze");
 		initialize();
 		setVisible(true);  
 	}

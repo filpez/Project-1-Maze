@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 
 public class GraphicInterface {
 
-	private JFrame frame;
+	private JFrame frmMaze;
 	private MazeGraphicPanel mazeDisplay;
 	
 	private Game game;
@@ -33,7 +33,7 @@ public class GraphicInterface {
 			public void run() {
 				try {
 					GraphicInterface window = new GraphicInterface();
-					window.frame.setVisible(true);
+					window.frmMaze.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,23 +52,24 @@ public class GraphicInterface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 500, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmMaze = new JFrame();
+		frmMaze.setTitle("MaZe");
+		frmMaze.setResizable(false);
+		frmMaze.setBounds(100, 100, 500, 500);
+		frmMaze.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMaze.getContentPane().setLayout(null);
 		
 		JButton GenerateMazeButton = new JButton("Generate New Maze");
 		GenerateMazeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GenerateMazeInterface generator = new GenerateMazeInterface(frame, true);
+				GenerateMazeInterface generator = new GenerateMazeInterface(frmMaze, true);
 				Maze maze = generator.getMaze();
 				Game.Mode mode = generator.getMode();
 				initiateGame(maze, mode);
 			}
 		});
 		GenerateMazeButton.setBounds(10, 25, 150, 46);
-		frame.getContentPane().add(GenerateMazeButton);
+		frmMaze.getContentPane().add(GenerateMazeButton);
 		
 		JButton FinishButton = new JButton("Finish");
 		FinishButton.addActionListener(new ActionListener() {
@@ -77,19 +78,19 @@ public class GraphicInterface {
 			}
 		});
 		FinishButton.setBounds(324, 25, 150, 46);
-		frame.getContentPane().add(FinishButton);
+		frmMaze.getContentPane().add(FinishButton);
 		
 		JButton CreateMazeButton = new JButton("Create New Maze");
 		CreateMazeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateMazeInterface creator = new CreateMazeInterface(frame, true);
+				CreateMazeInterface creator = new CreateMazeInterface(frmMaze, true);
 				Maze maze = creator.getMaze();
 				Game.Mode mode = creator.getMode();
 				initiateGame(maze, mode);
 			}
 		});
 		CreateMazeButton.setBounds(170, 25, 144, 46);
-		frame.getContentPane().add(CreateMazeButton);
+		frmMaze.getContentPane().add(CreateMazeButton);
 		
 		UpButton = new JButton("UP");
 		UpButton.addActionListener(new ActionListener() {
@@ -99,7 +100,7 @@ public class GraphicInterface {
 		});
 		UpButton.setEnabled(false);
 		UpButton.setBounds(324, 182, 150, 46);
-		frame.getContentPane().add(UpButton);
+		frmMaze.getContentPane().add(UpButton);
 		
 		LeftButton = new JButton("LEFT");
 		LeftButton.addActionListener(new ActionListener() {
@@ -109,7 +110,7 @@ public class GraphicInterface {
 		});
 		LeftButton.setEnabled(false);
 		LeftButton.setBounds(324, 239, 70, 46);
-		frame.getContentPane().add(LeftButton);
+		frmMaze.getContentPane().add(LeftButton);
 		
 		RightButton = new JButton("RIGHT");
 		RightButton.addActionListener(new ActionListener() {
@@ -119,7 +120,7 @@ public class GraphicInterface {
 		});
 		RightButton.setEnabled(false);
 		RightButton.setBounds(404, 239, 70, 46);
-		frame.getContentPane().add(RightButton);
+		frmMaze.getContentPane().add(RightButton);
 		
 		DownButton = new JButton("DOWN");
 		DownButton.addActionListener(new ActionListener() {
@@ -129,11 +130,11 @@ public class GraphicInterface {
 		});
 		DownButton.setEnabled(false);
 		DownButton.setBounds(324, 296, 150, 46);
-		frame.getContentPane().add(DownButton);
+		frmMaze.getContentPane().add(DownButton);
 		
 		StateLabel = new JLabel("Create or generate a new maze...");
 		StateLabel.setBounds(10, 446, 464, 14);
-		frame.getContentPane().add(StateLabel);
+		frmMaze.getContentPane().add(StateLabel);
 		
 		
 		
@@ -145,7 +146,7 @@ public class GraphicInterface {
 			mazeDisplay = new MazeGraphicPanel(game, this);
 			mazeDisplay.setBounds(10, 109, 300, 300);
 			mazeDisplay.setVisible(true);
-			frame.getContentPane().add(mazeDisplay);
+			frmMaze.getContentPane().add(mazeDisplay);
 			takeTurn(MazeLogic.Movement.NULL);
 		
 			DownButton.setEnabled(true);
