@@ -6,7 +6,6 @@ import java.util.Random;
 
 import maze.logic.Game.Mode;
 
-
 public class MazeLogic {
 	public enum Movement {UP, DOWN, LEFT, RIGHT, NULL}
 

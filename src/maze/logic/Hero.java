@@ -1,9 +1,8 @@
 package maze.logic;
-/*
- * Hero
- * 23/2/2016
+
+/**
+ * The hero entity represents a dynamic object of the maze that cannot be traversed.
  * 
- * by Filipe
  */
 
 public class Hero extends Entity {

@@ -11,6 +11,12 @@ public class Game {
 	private Maze maze;
 	private Mode mode;
 
+	/**
+	 * Creates a new game
+	 * @param maze - initial maze
+	 * @param mode - mode of the game (static, random and sleeps, random)
+	 */
+	
 	public Game(Maze maze, Mode mode){
 		this.maze = maze;
 		this.mode = mode;

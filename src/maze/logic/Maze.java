@@ -8,15 +8,16 @@ import java.util.Hashtable;
  * @author Filipe
  *
  */
+
 public class Maze {
 	private Hashtable<Point, ArrayList<Entity>> maze;
 	private int dimension;
 	private Point HeroKey = null;
 
 	/**
+	 * The maze should countain (dimension x dimension) entries.
 	 * @param maze - initial maze
 	 * @param dimension - size of the maze
-	 * The maze should countain (dimension x dimension) entries.
 	 */
 	public Maze(Hashtable<Point, ArrayList<Entity>> maze, int dimension) {
 		super();
@@ -73,7 +74,6 @@ public class Maze {
 		
 	}
 
-	
 	/**
 	 * @return all possible coordinates on the maze
 	 */
@@ -115,19 +115,19 @@ public class Maze {
 	}
 	
 	/**
+	 * Removes an entity from the maze.
 	 * @param position - entity coordinates on the maze
 	 * @param index - entity index on the list of entities of cell corresponding to position
 	 * @return the entity pointed by position and index
-	 * Removes an entity from the maze.
 	 */
 	public Entity removeEntity(Point position, int index) {
 		return maze.get(position).remove(index);
 	}
 	
 	/**
+	 * Checks if position is within the area of the maze
 	 * @param position - coordinates on the maze
 	 * @return true if position is valid, false otherwise
-	 * Checks if position is within the area of the maze
 	 */
 	public boolean validPoint(Point position){
 		int x = position.x;
@@ -138,4 +138,3 @@ public class Maze {
 		return true;
 	}
 }
-
