@@ -36,6 +36,7 @@ public class MazeGraphicPanel extends JPanel {
 	private static BufferedImage DragonSwordImage;
 	private static BufferedImage ExitImage;
 	private static BufferedImage FloorImage;
+	private static BufferedImage SleepingDragonImage;
 
 	private Game game;
 	private GraphicInterface parentFrame;
@@ -50,6 +51,7 @@ public class MazeGraphicPanel extends JPanel {
 			DragonSwordImage =  ImageIO.read(new File("DragonSword.png"));
 			ExitImage =  ImageIO.read(new File("Exit.png"));
 			FloorImage =  ImageIO.read(new File("Floor.png"));
+			SleepingDragonImage =  ImageIO.read(new File("SleepingDragon.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -146,7 +148,7 @@ public class MazeGraphicPanel extends JPanel {
 				g.drawImage(WallImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, WallImage.getWidth(), WallImage.getHeight(), null);
 			if (livingEnt instanceof Dragon){
 				if (livingEnt.getStatus() == Entity.Status.SLEEPING)
-					g.drawImage(DragonImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
+					g.drawImage(SleepingDragonImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, SleepingDragonImage.getWidth(), SleepingDragonImage.getHeight(), null);
 				else
 					g.drawImage(DragonImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
 			}

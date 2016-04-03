@@ -11,6 +11,7 @@ import maze.logic.MazeLogic;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class GraphicInterface {
 
@@ -22,6 +23,7 @@ public class GraphicInterface {
 	private JButton LeftButton;
 	private JButton RightButton;
 	private JButton DownButton;
+	private JLabel StateLabel;
 
 	/**
 	 * Launch the application.
@@ -129,6 +131,10 @@ public class GraphicInterface {
 		DownButton.setBounds(324, 296, 150, 46);
 		frame.getContentPane().add(DownButton);
 		
+		StateLabel = new JLabel("Create or generate a new maze...");
+		StateLabel.setBounds(10, 446, 464, 14);
+		frame.getContentPane().add(StateLabel);
+		
 		
 		
 	}
@@ -160,6 +166,12 @@ public class GraphicInterface {
 			UpButton.setEnabled(false);
 			LeftButton.setEnabled(false);
 			RightButton.setEnabled(false);
+			if (game.getState() == Game.State.WON)
+				StateLabel.setText("You got to the exit!!!");
+			else
+				StateLabel.setText("You got killed...");
 		}
+		else
+			StateLabel.setText("Move using the arrow keys or the buttons.");
 	}
 }
