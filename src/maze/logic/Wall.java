@@ -1,7 +1,7 @@
 package maze.logic;
 
 /**
- * The wall entity represents a static object of the maze that cannot be traversed.
+ * The Wall entity represents a static object of the Maze that cannot be traversed.
  * 
  */
 

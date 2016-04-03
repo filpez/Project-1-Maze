@@ -1,8 +1,8 @@
 package maze.logic;
 
 /**
- * The sword entity represents a static object of the maze that can be traversed.
- * When the hero entity goes through the sword, the sword entity is "killed".
+ * The Sword entity represents a static object of the Maze that can be traversed.
+ * When the Hero entity goes through the Sword, the Sword entity is "killed".
  * 
  */
 

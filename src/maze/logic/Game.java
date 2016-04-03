@@ -12,9 +12,9 @@ public class Game {
 	private Mode mode;
 
 	/**
-	 * Creates a new game
+	 * Creates a new Game
 	 * @param maze - initial maze
-	 * @param mode - mode of the game (static, random and sleeps, random)
+	 * @param mode - mode of the Game (static, random and sleeps, random)
 	 */
 	
 	public Game(Maze maze, Mode mode){
@@ -38,6 +38,11 @@ public class Game {
 	public void setMode(Mode mode) {
 		this.mode = mode;
 	}
+	
+	/**
+	 * Moves Hero if possible
+	 * @param movDirection - direction in which the Hero will move (up, down, left, right, null)
+	 */
 
 	public void takeTurn(MazeLogic.Movement movDirection){
 		//Resets entity movements
@@ -77,12 +82,22 @@ public class Game {
 			return;
 		}
 	}
-
+	
+	/**
+	 * Checks if the Game was lost or not
+	 * @return true if the Hero is dead, false if he lives
+	 */
+	
 	private boolean losingConditions() {
 		if (maze.getHero().getStatus() == Entity.Status.DEAD)
 			return true;
 		return false;
 	}
+	
+	/**
+	 * Checks if the Game was won or not
+	 * @return true if the Hero is at the Exit, false if he isn't
+	 */
 
 	private boolean winningConditions() {
 		ArrayList<Entity> currentHeroCell = maze.getCell(maze.getHeroKey());

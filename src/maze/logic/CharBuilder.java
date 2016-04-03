@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class CharBuilder {
-
+	
+	/**
+	 * Converts a 2D array of chars in a Hashtable.
+	 * @param layout - 2D array containing the arrangement of the Maze
+	 * @return Maze equivalent to layout
+	 */
 	public static Maze getMaze(char layout[][]) {
 		int dimension = layout.length;
 		Point point = new Point(0,0);

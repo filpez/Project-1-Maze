@@ -1,10 +1,10 @@
 package maze.logic;
 
-/*
- * Dungeon
- * 23/2/2016
+/**
+ * The Dragon entity represents a static or dynamic object of the Maze that cannot be traversed.
+ * If the Hero arrives before the dragon unarmed, the Hero is "killed" and the Game is lost.
+ * Otherwise, the Dragon is killed and the Exit of the Maze opens.
  * 
- * by Filipe
  */
 
 public class Dragon extends Entity {
@@ -14,8 +14,4 @@ public class Dragon extends Entity {
 		this.living = true;
 		this.traversable = false;
 	}
-	
-	
-	
-
 }

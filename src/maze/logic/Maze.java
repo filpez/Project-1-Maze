@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
+ * The Maze class represents the board in which the game will take place
+ * 
  * @author Filipe
  *
  */

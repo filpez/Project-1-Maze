@@ -1,7 +1,8 @@
 package maze.logic;
 
 /**
- * The hero entity represents a dynamic object of the maze that cannot be traversed.
+ * The Hero entity represents a dynamic object of the Maze that cannot be traversed.
+ * The player controls this entity and the loss or victory of the Game depends on the Hero.
  * 
  */
 
