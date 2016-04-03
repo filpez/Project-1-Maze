@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Stack;
 
 /**
- * MazeBuilder generates random bi-dimensional arrays of char which can be used to build mazes.
+ * MazeBuilder generates random bi-dimensional arrays of chars which can be used to build mazes.
  *
  */
 public class MazeBuilder implements IMazeBuilder{

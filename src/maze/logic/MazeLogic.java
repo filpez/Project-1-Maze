@@ -13,6 +13,11 @@ public class MazeLogic {
 	private static final int AWAKE_CHANGE = 20;
 	private static final int NO_MOVEMENT_CHANGE = 20;
 
+	/**
+	 * Tests for something to happen. Takes a probability as an argument (can range from 0 to 100).
+	 * @param change - the chance of happening
+	 * @return true if it happens, false otherwise.
+	 */
 	private static boolean tryBehaviour(int change){
 		Random random = new Random();
 		if (random.nextInt(100) < change)
@@ -20,6 +25,12 @@ public class MazeLogic {
 		return false;
 	}
 
+	/**
+	 * Checks if there is still a free direction to move to from a position.
+	 * @param maze - the maze in question
+	 * @param position - the position in question
+	 * @return false if all direction are not free, true otherwise.
+	 */
 	private static boolean isStuck(Maze maze, Point position){
 		int x = position.x;
 		int y = position.y;
@@ -31,11 +42,26 @@ public class MazeLogic {
 		return true;
 	}
 
+	/**
+	 * Generates a random direction
+	 * @return - a random direction
+	 */
 	private static Movement randomDirection(){
 		Random random = new Random();
 		return Movement.values()[random.nextInt(Movement.values().length - 1)];
 	}
 
+	/**
+	 * Moves an entity taking in count mode:
+	 * STATIC - doesn't moves.
+	 * RANDOM - random direction.
+	 * RANDOM_SLEEP - random direction but sometimes entity starts sleeping.
+	 * @param maze - the maze in question.
+	 * @param position - the position of the entity.
+	 * @param index - the index of the entity in the cell it currently is.
+	 * @param mode - the movement generation mode.
+	 * @return true if the entity moved, false otherwise.
+	 */
 	public static boolean move(Maze maze, Point position, int index, Mode mode) {
 		Entity ent = maze.getEntity(position, index);
 		Movement movDirection = Movement.NULL;
@@ -76,6 +102,12 @@ public class MazeLogic {
 		return move(maze, position, index, movDirection);
 	}
 
+	/**
+	 * Generates a new position taking another position and a direction
+	 * @param init - initial position
+	 * @param movDirection - the chosen direction
+	 * @return the new position
+	 */
 	private static Point newPosition(Point init, Movement movDirection){
 		Point dest = new Point(init);
 		switch(movDirection){
@@ -97,6 +129,15 @@ public class MazeLogic {
 		return dest;
 	}
 
+	/**
+	 * Moves an entity in a direction.
+	 * RANDOM_SLEEP - random direction but sometimes entity starts sleeping.
+	 * @param maze - the maze in question.
+	 * @param position - the position of the entity.
+	 * @param index - the index of the entity in the cell it currently is.
+	 * @param movDirection - the chosen direction
+	 * @return true if the entity moved, false otherwise.
+	 */
 	public static boolean move(Maze maze, Point init, int index, Movement movDirection) {
 		Point dest = newPosition(init, movDirection);
 
@@ -107,6 +148,12 @@ public class MazeLogic {
 		return true;	
 	}
 
+	/**
+	 * Checks if a position has no non-traversable entities.
+	 * @param maze - the maze in question.
+	 * @param dest - the position to check
+	 * @return true if it is free, false otherwise
+	 */
 	private static boolean isFree(Maze maze, Point dest) {
 		ArrayList<Entity> currentCell = maze.getCell(dest);
 		for(Entity ent: currentCell)
@@ -115,6 +162,12 @@ public class MazeLogic {
 		return true;
 	}
 
+	/**
+	 * Checks if there is a dragon in a position.
+	 * Kills either the dragon or the hero if there is, taking in count if the hero is armed or not.
+	 * @param maze - the maze in question.
+	 * @param position- the position to check
+	 */
 	private static void checkForDragon(Maze maze, Point position) {
 		if (maze.validPoint(position)){	
 			ArrayList<Entity> currentCell = maze.getCell(position);
@@ -128,6 +181,12 @@ public class MazeLogic {
 		}
 	}
 
+	/**
+	 * Checks if there is a sword in a position.
+	 * The hero becomes armed if there is.
+	 * @param maze - the maze in question.
+	 * @param position- the position to check
+	 */
 	private static void checkForSword(Maze maze, Point position) {
 		if (maze.validPoint(position)){	
 			ArrayList<Entity> currentCell = maze.getCell(position);
@@ -139,6 +198,11 @@ public class MazeLogic {
 		}
 	}
 
+	/**
+	 * Checks if it is possible to open the exit.
+	 * This happens when there are no dragons alive.
+	 * @param maze - the maze in question.
+	 */
 	private static void checkForExit(Maze maze) {
 		int dragonCounter = 0;
 		for (Point position: maze.getAllPositions()){
@@ -161,6 +225,10 @@ public class MazeLogic {
 
 	}
 
+	/**
+	 * Handles all types of collisions between the hero and swords or dragons.
+	 * @param maze - the maze in question.
+	 */
 	public static void colisions_handler(Maze maze) {
 		Point upperCellKey = newPosition(maze.getHeroKey(), Movement.UP);
 		Point lowerCellKey = newPosition(maze.getHeroKey(), Movement.DOWN);
