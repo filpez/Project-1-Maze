@@ -110,11 +110,7 @@ public class CreateMazeGraphicPanel extends JPanel {
 			for (Point position: maze.getAllPositions()){
 				drawCell(g, position, imageLateralSize);
 			}
-//			g.drawImage(HeroImage, 360, 15, 389, 44, 0, 0, HeroImage.getWidth(), HeroImage.getHeight(), null);
-//			g.drawImage(WallImage, 360, 75, 389, 104, 0, 0, WallImage.getWidth(), WallImage.getHeight(), null);
-//			g.drawImage(DragonImage, 360, 135, 389, 164, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
-//			g.drawImage(ExitImage, 360, 195, 389, 224, 0, 0, ExitImage.getWidth(), ExitImage.getHeight(), null);
-//			g.drawImage(SwordImage, 360, 255, 389, 284, 0, 0, SwordImage.getWidth(), SwordImage.getHeight(), null);
+
 
 		}
 		
