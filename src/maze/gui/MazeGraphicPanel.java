@@ -28,8 +28,6 @@ public class MazeGraphicPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Game game;
-
 	private static BufferedImage WallImage;
 	private static BufferedImage HeroImage;
 	private static BufferedImage ArmedHeroImage;
@@ -39,7 +37,9 @@ public class MazeGraphicPanel extends JPanel {
 	private static BufferedImage ExitImage;
 	private static BufferedImage FloorImage;
 
-
+	private Game game;
+	private GraphicInterface parentFrame;
+	
 	public void initialize(){
 		try {
 			WallImage =  ImageIO.read(new File("Wall.png"));
@@ -56,10 +56,11 @@ public class MazeGraphicPanel extends JPanel {
 
 	}
 
-	public MazeGraphicPanel(Maze maze, Game.Mode mode){
+	public MazeGraphicPanel(Game game, GraphicInterface graphicInterface){
 		initialize();
-		this.game = new Game(maze, mode);
 
+		this.game = game;
+		this.parentFrame = graphicInterface;
 
 		addKeyListener(new KeyListener() {
 			@Override
@@ -71,19 +72,19 @@ public class MazeGraphicPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()){
 				case KeyEvent.VK_LEFT: 
-					takeTurn(MazeLogic.Movement.LEFT);
+					parentFrame.takeTurn(MazeLogic.Movement.LEFT);
 					break;
 
 				case KeyEvent.VK_RIGHT: 
-					takeTurn(MazeLogic.Movement.RIGHT);
+					parentFrame.takeTurn(MazeLogic.Movement.RIGHT);
 					break;
 
 				case KeyEvent.VK_UP: 
-					takeTurn(MazeLogic.Movement.UP);
+					parentFrame.takeTurn(MazeLogic.Movement.UP);
 					break;
 
 				case KeyEvent.VK_DOWN: 
-					takeTurn(MazeLogic.Movement.DOWN);
+					parentFrame.takeTurn(MazeLogic.Movement.DOWN);
 					break;
 				}
 				repaint();
@@ -168,15 +169,5 @@ public class MazeGraphicPanel extends JPanel {
 	public void takeTurn(MazeLogic.Movement mov){
 		game.takeTurn(mov);
 		repaint();
-		//		if(game.getState()!= Game.State.RUNNING){
-		//			if(game.getState()== Game.State.WON)
-		//				lblGameState.setText("WON!");
-		//			else
-		//				lblGameState.setText("LOST!");
-		//			btnLeft.setEnabled(false);
-		//			btnRight.setEnabled(false);
-		//			btnUp.setEnabled(false);
-		//			btnDown.setEnabled(false);
-		//		}
 	}
 }

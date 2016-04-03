@@ -17,8 +17,11 @@ public class GraphicInterface {
 	private JFrame frame;
 	private MazeGraphicPanel mazeDisplay;
 	
-	private Maze maze;
-	private Game.Mode mode;
+	private Game game;
+	private JButton UpButton;
+	private JButton LeftButton;
+	private JButton RightButton;
+	private JButton DownButton;
 
 	/**
 	 * Launch the application.
@@ -56,16 +59,21 @@ public class GraphicInterface {
 		GenerateMazeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				GenerateMazeInterface generator = new GenerateMazeInterface(frame, true);
-				maze = generator.getMaze();
-				mode = generator.getMode();
-				initiateGame();
-				
+				Maze maze = generator.getMaze();
+				Game.Mode mode = generator.getMode();
+				initiateGame(maze, mode);
+				mazeDisplay.requestFocus();	
 			}
 		});
 		GenerateMazeButton.setBounds(10, 25, 150, 46);
 		frame.getContentPane().add(GenerateMazeButton);
 		
 		JButton FinishButton = new JButton("Finish");
+		FinishButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		FinishButton.setBounds(324, 25, 150, 46);
 		frame.getContentPane().add(FinishButton);
 		
@@ -73,42 +81,76 @@ public class GraphicInterface {
 		CreateMazeButton.setBounds(170, 25, 144, 46);
 		frame.getContentPane().add(CreateMazeButton);
 		
-		JButton UpButton = new JButton("UP");
+		UpButton = new JButton("UP");
+		UpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				takeTurn(MazeLogic.Movement.UP);
+			}
+		});
 		UpButton.setEnabled(false);
 		UpButton.setBounds(324, 182, 150, 46);
 		frame.getContentPane().add(UpButton);
 		
-		JButton LeftButton = new JButton("LEFT");
+		LeftButton = new JButton("LEFT");
+		LeftButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				takeTurn(MazeLogic.Movement.LEFT);
+			}
+		});
 		LeftButton.setEnabled(false);
 		LeftButton.setBounds(324, 239, 70, 46);
 		frame.getContentPane().add(LeftButton);
 		
-		JButton RightButton = new JButton("RIGHT");
+		RightButton = new JButton("RIGHT");
+		RightButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				takeTurn(MazeLogic.Movement.RIGHT);
+			}
+		});
 		RightButton.setEnabled(false);
 		RightButton.setBounds(404, 239, 70, 46);
 		frame.getContentPane().add(RightButton);
 		
-		JButton DownButton = new JButton("DOWN");
+		DownButton = new JButton("DOWN");
+		DownButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				takeTurn(MazeLogic.Movement.DOWN);
+			}
+		});
 		DownButton.setEnabled(false);
 		DownButton.setBounds(324, 296, 150, 46);
 		frame.getContentPane().add(DownButton);
 		
-//		mazeDisplay = new MazeGraphicPanel();
-//		mazeDisplay.setBounds(10, 109, 300, 300);
-//		mazeDisplay.setVisible(true);
-//		frame.getContentPane().add(mazeDisplay);
+		
+		
 	}
 	
-	public void initiateGame(){
+	public void initiateGame(Maze maze, Game.Mode mode){
 		if (maze != null){
-			mazeDisplay = new MazeGraphicPanel(maze, mode);
+			this.game = new Game(maze, mode);
+			mazeDisplay = new MazeGraphicPanel(game, this);
 			mazeDisplay.setBounds(10, 109, 300, 300);
 			mazeDisplay.setVisible(true);
 			frame.getContentPane().add(mazeDisplay);
-			mazeDisplay.takeTurn(MazeLogic.Movement.NULL);
-			mazeDisplay.requestFocus();
-			
-			
+			takeTurn(MazeLogic.Movement.NULL);
+		
+			DownButton.setEnabled(true);
+			UpButton.setEnabled(true);
+			LeftButton.setEnabled(true);
+			RightButton.setEnabled(true);
+		}
+	}
+	
+	public void takeTurn(MazeLogic.Movement movDirection){
+		game.takeTurn(movDirection);
+		mazeDisplay.repaint();
+		mazeDisplay.requestFocus();	
+		if(game.getState() != Game.State.RUNNING){
+			mazeDisplay.setEnabled(false);
+			DownButton.setEnabled(false);
+			UpButton.setEnabled(false);
+			LeftButton.setEnabled(false);
+			RightButton.setEnabled(false);
 		}
 	}
 }
