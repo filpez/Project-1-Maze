@@ -4,14 +4,12 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import org.junit.Test;
 
 import maze.logic.Game;
 import maze.logic.Maze;
 import maze.logic.MazeLogic;
-import maze.logic.Game.Mode;
 import maze.logic.CharBuilder;
 import maze.logic.Entity;
 import maze.logic.Dragon;
@@ -86,10 +84,7 @@ public class NonStaticGameTest {
 						break;
 					}
 			}
-		}
-		
-		assertEquals(Entity.Status.NORMAL, m.getCell(position).get(0).getStatus());
-		 
+		}	
+		assertEquals(Entity.Status.NORMAL, m.getCell(position).get(0).getStatus());	 
 	}
-
 }
