@@ -133,7 +133,7 @@ public class MazeLogic {
 	 * Moves an entity in a direction.
 	 * RANDOM_SLEEP - random direction but sometimes entity starts sleeping.
 	 * @param maze - the maze in question.
-	 * @param position - the position of the entity.
+	 * @param init - the position of the entity.
 	 * @param index - the index of the entity in the cell it currently is.
 	 * @param movDirection - the chosen direction
 	 * @return true if the entity moved, false otherwise.
