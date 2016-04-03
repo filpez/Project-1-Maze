@@ -74,8 +74,6 @@ public class MazeBuilder implements IMazeBuilder{
 			addChar('D');
 		for(int i = 0; i < swordCounter; i++)
 		addChar('E');
-		
-
 
 		return lab;
 	}
@@ -268,6 +266,4 @@ public class MazeBuilder implements IMazeBuilder{
 			return true;
 		return false;
 	}
-
-
 }

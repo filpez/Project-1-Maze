@@ -1,6 +1,8 @@
 package maze.logic;
 
 /**
+ * An Entity represents any of the objects that can exist on the Maze throughout the Game.
+ * 
  * @author Filipe
  *
  */
@@ -39,8 +41,7 @@ public abstract class Entity {
 
 	public void setTraversable(boolean traversable) {
 		this.traversable = traversable;
-	}
-	
+	}	
 	
 	public boolean hasMoved() {
 		return moved;
@@ -51,7 +52,8 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Sets living to false, status to Status.DEAD, and traversable to true;
+	 * Sets living to false, status to Status.DEAD, and traversable to true.
+	 * Kills an entity
 	 */
 	public void kill() {
 		this.living = false;
@@ -59,3 +61,4 @@ public abstract class Entity {
 		this.traversable = true;
 	}
 }
+
