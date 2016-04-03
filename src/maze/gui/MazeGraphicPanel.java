@@ -106,8 +106,6 @@ public class MazeGraphicPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (game != null){
-			System.out.print(game != null);
-			System.out.print("A");
 			Maze maze = game.getMaze();
 			int imageLateralSize = (int)(this.getHeight()/maze.getDimension());
 			for (Point position: maze.getAllPositions()){

@@ -51,6 +51,7 @@ public class GraphicInterface {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBounds(100, 100, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -62,7 +63,6 @@ public class GraphicInterface {
 				Maze maze = generator.getMaze();
 				Game.Mode mode = generator.getMode();
 				initiateGame(maze, mode);
-				mazeDisplay.requestFocus();	
 			}
 		});
 		GenerateMazeButton.setBounds(10, 25, 150, 46);
@@ -78,6 +78,14 @@ public class GraphicInterface {
 		frame.getContentPane().add(FinishButton);
 		
 		JButton CreateMazeButton = new JButton("Create New Maze");
+		CreateMazeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateMazeInterface creator = new CreateMazeInterface(frame, true);
+				Maze maze = creator.getMaze();
+				Game.Mode mode = creator.getMode();
+				initiateGame(maze, mode);
+			}
+		});
 		CreateMazeButton.setBounds(170, 25, 144, 46);
 		frame.getContentPane().add(CreateMazeButton);
 		
@@ -138,6 +146,7 @@ public class GraphicInterface {
 			UpButton.setEnabled(true);
 			LeftButton.setEnabled(true);
 			RightButton.setEnabled(true);
+			mazeDisplay.requestFocus();
 		}
 	}
 	
