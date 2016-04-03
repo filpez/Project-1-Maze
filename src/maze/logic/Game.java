@@ -16,13 +16,9 @@ public class Game {
 		this.mode = mode;
 	}
 
-
-
 	public Maze getMaze() {
 		return maze;
 	}
-
-
 
 	public State getState() {
 		return state;
@@ -36,8 +32,6 @@ public class Game {
 	public void setMode(Mode mode) {
 		this.mode = mode;
 	}
-
-
 
 	public void takeTurn(MazeLogic.Movement movDirection){
 		//Resets entity movements
@@ -78,15 +72,11 @@ public class Game {
 		}
 	}
 
-
-
 	private boolean losingConditions() {
 		if (maze.getHero().getStatus() == Entity.Status.DEAD)
 			return true;
 		return false;
 	}
-
-
 
 	private boolean winningConditions() {
 		ArrayList<Entity> currentHeroCell = maze.getCell(maze.getHeroKey());
