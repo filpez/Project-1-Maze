@@ -22,6 +22,7 @@ import maze.logic.MazeLogic;
 import maze.logic.Sword;
 import maze.logic.Wall;
 
+
 public class MazeGraphicPanel extends JPanel {
 	/**
 	 * 
@@ -38,8 +39,7 @@ public class MazeGraphicPanel extends JPanel {
 	private static BufferedImage ExitImage;
 	private static BufferedImage FloorImage;
 
-	private int width, height;
-	
+
 	public void initialize(){
 		try {
 			WallImage =  ImageIO.read(new File("Wall.png"));
@@ -56,16 +56,15 @@ public class MazeGraphicPanel extends JPanel {
 
 	}
 
-	public MazeGraphicPanel(Maze maze, Game.Mode mode, double size){
+	public MazeGraphicPanel(Maze maze, Game.Mode mode){
 		initialize();
 		this.game = new Game(maze, mode);
-		this.height = (int)(size/maze.getDimension());
-		this.width = (int)(size/maze.getDimension());
-		
+
+
 		addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				
+
 			}
 
 			@Override
@@ -74,7 +73,7 @@ public class MazeGraphicPanel extends JPanel {
 				case KeyEvent.VK_LEFT: 
 					takeTurn(MazeLogic.Movement.LEFT);
 					break;
-					
+
 				case KeyEvent.VK_RIGHT: 
 					takeTurn(MazeLogic.Movement.RIGHT);
 					break;
@@ -89,7 +88,7 @@ public class MazeGraphicPanel extends JPanel {
 				}
 				repaint();
 
-				
+
 			}
 
 			@Override
@@ -98,69 +97,86 @@ public class MazeGraphicPanel extends JPanel {
 		});
 	}
 
+
+
+
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Maze maze = game.getMaze();
-		for (Point position: maze.getAllPositions()){
-			drawCell(g, position);
+		if (game != null){
+			System.out.print(game != null);
+			System.out.print("A");
+			Maze maze = game.getMaze();
+			int imageLateralSize = (int)(this.getHeight()/maze.getDimension());
+			for (Point position: maze.getAllPositions()){
+				drawCell(g, position, imageLateralSize);
+			}
 		}
 	}
-	
-	private void drawCell(Graphics g, Point position) {
-		int x = position.x*width;
-		int y = position.y*width;
+
+
+	private void drawCell(Graphics g, Point position, int imageLateralSize) {
+		int imageHeight = imageLateralSize;
+		int imageWidth = imageLateralSize;
+		int x = position.x*imageWidth;
+		int y = position.y*imageHeight;
 		ArrayList<Entity> cell = game.getMaze().getCell(position);
 		int livingEntities = 0;
 		for (Entity ent: cell)
 			if (ent.getStatus() != Entity.Status.DEAD)
 				livingEntities++;
-		
+
 		switch (livingEntities){
 		case 0:
-			g.drawImage(FloorImage, x, y, x + width - 1, y + height - 1, 0, 0, FloorImage.getWidth(), FloorImage.getHeight(), null);
+			g.drawImage(FloorImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, FloorImage.getWidth(), FloorImage.getHeight(), null);
+			break;
 		case 1:
 			Entity livingEnt = cell.get(0);
 			for (Entity ent: cell)
 				if (ent.getStatus() != Entity.Status.DEAD)
 					livingEnt = ent;
+			
 			if (livingEnt instanceof Hero){
 				if (((Hero) livingEnt).isArmed())
-					g.drawImage(ArmedHeroImage, x, y, x + width - 1, y + height - 1, 0, 0, ArmedHeroImage.getWidth(), ArmedHeroImage.getHeight(), null);
+					g.drawImage(ArmedHeroImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, ArmedHeroImage.getWidth(), ArmedHeroImage.getHeight(), null);
 				else
-					g.drawImage(HeroImage, x, y, x + width - 1, y + height - 1, 0, 0, HeroImage.getWidth(), HeroImage.getHeight(), null);
+					g.drawImage(HeroImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, HeroImage.getWidth(), HeroImage.getHeight(), null);
 			}
 			if (livingEnt instanceof Wall)
-				g.drawImage(WallImage, x, y, x + width - 1, y + height - 1, 0, 0, WallImage.getWidth(), WallImage.getHeight(), null);
+				g.drawImage(WallImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, WallImage.getWidth(), WallImage.getHeight(), null);
 			if (livingEnt instanceof Dragon){
 				if (livingEnt.getStatus() == Entity.Status.SLEEPING)
-					g.drawImage(DragonImage, x, y, x + width - 1, y + height - 1, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
+					g.drawImage(DragonImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
 				else
-					g.drawImage(DragonImage, x, y, x + width - 1, y + height - 1, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
+					g.drawImage(DragonImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
 			}
 			if (livingEnt instanceof Exit)
-				g.drawImage(ExitImage, x, y, x + width - 1, y + height - 1, 0, 0, ExitImage.getWidth(), ExitImage.getHeight(), null);
+				g.drawImage(ExitImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, ExitImage.getWidth(), ExitImage.getHeight(), null);
 			if (livingEnt instanceof Sword)
-				g.drawImage(SwordImage, x, y, x + width - 1, y + height - 1, 0, 0, SwordImage.getWidth(), SwordImage.getHeight(), null);
+				g.drawImage(SwordImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, SwordImage.getWidth(), SwordImage.getHeight(), null);
+			break;
 		case 2:
-			g.drawImage(DragonSwordImage, x, y, x + width - 1, y + height - 1, 0, 0, DragonSwordImage.getWidth(), DragonSwordImage.getHeight(), null);
+			g.drawImage(DragonSwordImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, DragonSwordImage.getWidth(), DragonSwordImage.getHeight(), null);
+			break;
 		default:
-			g.drawImage(FloorImage, x, y, x + width - 1, y + height - 1, 0, 0, FloorImage.getWidth(), FloorImage.getHeight(), null);
+			g.drawImage(FloorImage, x, y, x + imageWidth - 1, y + imageHeight - 1, 0, 0, FloorImage.getWidth(), FloorImage.getHeight(), null);
+			break;
 		}
 	}
 
 	public void takeTurn(MazeLogic.Movement mov){
 		game.takeTurn(mov);
 		repaint();
-//		if(game.getState()!= Game.State.RUNNING){
-//			if(game.getState()== Game.State.WON)
-//				lblGameState.setText("WON!");
-//			else
-//				lblGameState.setText("LOST!");
-//			btnLeft.setEnabled(false);
-//			btnRight.setEnabled(false);
-//			btnUp.setEnabled(false);
-//			btnDown.setEnabled(false);
-//		}
+		//		if(game.getState()!= Game.State.RUNNING){
+		//			if(game.getState()== Game.State.WON)
+		//				lblGameState.setText("WON!");
+		//			else
+		//				lblGameState.setText("LOST!");
+		//			btnLeft.setEnabled(false);
+		//			btnRight.setEnabled(false);
+		//			btnUp.setEnabled(false);
+		//			btnDown.setEnabled(false);
+		//		}
 	}
 }

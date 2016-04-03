@@ -4,10 +4,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import maze.logic.Game;
 import maze.logic.Maze;
+import maze.logic.MazeLogic;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,7 +15,10 @@ import java.awt.event.ActionEvent;
 public class GraphicInterface {
 
 	private JFrame frame;
-	private JPanel mazeDisplay;
+	private MazeGraphicPanel mazeDisplay;
+	
+	private Maze maze;
+	private Game.Mode mode;
 
 	/**
 	 * Launch the application.
@@ -53,11 +56,9 @@ public class GraphicInterface {
 		GenerateMazeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				GenerateMazeInterface generator = new GenerateMazeInterface(frame, true);
-				Maze maze = generator.getMaze();
-				Game.Mode mode = generator.getMode();
-				if (maze != null){
-					mazeDisplay = new MazeGraphicPanel(maze, mode, mazeDisplay.getBounds().getWidth());
-				}
+				maze = generator.getMaze();
+				mode = generator.getMode();
+				initiateGame();
 				
 			}
 		});
@@ -92,8 +93,22 @@ public class GraphicInterface {
 		DownButton.setBounds(324, 296, 150, 46);
 		frame.getContentPane().add(DownButton);
 		
-		mazeDisplay = new JPanel();
-		mazeDisplay.setBounds(10, 109, 300, 300);
-		frame.getContentPane().add(mazeDisplay);
+//		mazeDisplay = new MazeGraphicPanel();
+//		mazeDisplay.setBounds(10, 109, 300, 300);
+//		mazeDisplay.setVisible(true);
+//		frame.getContentPane().add(mazeDisplay);
+	}
+	
+	public void initiateGame(){
+		if (maze != null){
+			mazeDisplay = new MazeGraphicPanel(maze, mode);
+			mazeDisplay.setBounds(10, 109, 300, 300);
+			mazeDisplay.setVisible(true);
+			frame.getContentPane().add(mazeDisplay);
+			mazeDisplay.takeTurn(MazeLogic.Movement.NULL);
+			mazeDisplay.requestFocus();
+			
+			
+		}
 	}
 }
