@@ -2,7 +2,8 @@ package maze.gui;
 
 import java.awt.Graphics;
 import java.awt.Point;
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class CreateMazeGraphicPanel extends JPanel {
 	private static BufferedImage FloorImage;
 
 	private Maze maze;
+	private CreateMazeInterface createMazeInterface;
 
 	public void initialize(){
 		try {
@@ -48,13 +50,53 @@ public class CreateMazeGraphicPanel extends JPanel {
 
 	}
 
-	public CreateMazeGraphicPanel(Maze maze){
+	public CreateMazeGraphicPanel(CreateMazeInterface createMazeInterface, Maze maze){
 		initialize();
+		this.createMazeInterface = createMazeInterface;
 		this.maze = maze;
+		
+		addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Maze maze = CreateMazeGraphicPanel.this.maze;
+				int dimension = maze.getDimension();
+				int imageLateralSize = (int)(CreateMazeGraphicPanel.this.getHeight()/dimension);
+				int x = e.getX()/imageLateralSize;
+				int y = e.getY()/imageLateralSize;
+				Point p = new Point(x,y);
+				if (maze.validPoint(p))
+					putEntityAtCell(p);	
+				repaint();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}	
+		});
 	}
 
 
 	
+
+	protected void putEntityAtCell(Point p) {
+		ArrayList<Entity> cell = maze.getCell(p);
+		Entity ent = createMazeInterface.getSelectedEntity();
+		cell.clear();
+		if (ent != null)
+			cell.add(ent);
+	}
 
 	public void setMaze(Maze maze) {
 		this.maze = maze;
@@ -68,11 +110,11 @@ public class CreateMazeGraphicPanel extends JPanel {
 			for (Point position: maze.getAllPositions()){
 				drawCell(g, position, imageLateralSize);
 			}
-			g.drawImage(HeroImage, 360, 15, 389, 44, 0, 0, HeroImage.getWidth(), HeroImage.getHeight(), null);
-			g.drawImage(WallImage, 360, 75, 389, 104, 0, 0, WallImage.getWidth(), WallImage.getHeight(), null);
-			g.drawImage(DragonImage, 360, 135, 389, 164, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
-			g.drawImage(ExitImage, 360, 195, 389, 224, 0, 0, ExitImage.getWidth(), ExitImage.getHeight(), null);
-			g.drawImage(SwordImage, 360, 255, 389, 284, 0, 0, SwordImage.getWidth(), SwordImage.getHeight(), null);
+//			g.drawImage(HeroImage, 360, 15, 389, 44, 0, 0, HeroImage.getWidth(), HeroImage.getHeight(), null);
+//			g.drawImage(WallImage, 360, 75, 389, 104, 0, 0, WallImage.getWidth(), WallImage.getHeight(), null);
+//			g.drawImage(DragonImage, 360, 135, 389, 164, 0, 0, DragonImage.getWidth(), DragonImage.getHeight(), null);
+//			g.drawImage(ExitImage, 360, 195, 389, 224, 0, 0, ExitImage.getWidth(), ExitImage.getHeight(), null);
+//			g.drawImage(SwordImage, 360, 255, 389, 284, 0, 0, SwordImage.getWidth(), SwordImage.getHeight(), null);
 
 		}
 		

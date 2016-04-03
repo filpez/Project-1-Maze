@@ -11,7 +11,7 @@ import java.util.Hashtable;
 public class Maze {
 	private Hashtable<Point, ArrayList<Entity>> maze;
 	private int dimension;
-	private Point HeroKey;
+	private Point HeroKey = null;
 
 	/**
 	 * @param maze - initial maze
