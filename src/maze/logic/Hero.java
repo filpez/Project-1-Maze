@@ -3,6 +3,7 @@ package maze.logic;
 /**
  * The Hero entity represents a dynamic object of the Maze that cannot be traversed.
  * The player controls this entity and the loss or victory of the Game depends on the Hero.
+ * If the Hero finds the Sword in the Maze, then the Hero picks it and becomes armed.
  * 
  */
 
