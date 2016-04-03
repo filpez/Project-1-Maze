@@ -4,6 +4,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * CharBuilder is used to generate a Maze from a bi-dimensional array of chars.
+ *
+ */
 public class CharBuilder {
 	
 	/**
